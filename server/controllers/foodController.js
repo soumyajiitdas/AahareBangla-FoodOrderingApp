@@ -3,7 +3,7 @@ const Food = require('../models/Food');
 // Seed the database with initial food items
 const seedFoods = async (req, res) => {
     try {
-        await Food.deleteMany(); // Clear existing food items
+        // Use upsert to prevent duplicates instead of deleting all
         const foods = [
             // Appetizers
             { name: 'Chicken Wings', price: 8.99, category: 'Appetizers', description: 'Crispy fried chicken wings with BBQ sauce', image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?w=400', isVeg: false },
@@ -36,7 +36,17 @@ const seedFoods = async (req, res) => {
             { name: 'Strawberry Smoothie', price: 5.49, category: 'Beverages', description: 'Fresh strawberry blended smoothie', image: 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400', isVeg: true },
             { name: 'Coca Cola', price: 2.49, category: 'Beverages', description: 'Classic cola drink', image: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?w=400', isVeg: true }
         ];
-        await Food.insertMany(foods);
+        
+        // Use bulkWrite with upsert to prevent duplicates
+        const operations = foods.map(food => ({
+            updateOne: {
+                filter: { name: food.name, category: food.category },
+                update: { $set: food },
+                upsert: true
+            }
+        }));
+        
+        await Food.bulkWrite(operations);
         res.status(201).send('Food items seeded successfully');
     } catch (err) {
         res.status(500).send(err.message);

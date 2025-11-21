@@ -15,12 +15,27 @@
     animation: fadeIn 0.6s ease-out;
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 2s infinite;
+    background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-size: 1000px 100%;
+}
+
 /* Smooth scroll */
 html {
     scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Zomato style */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -30,18 +45,18 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ea580c;
+    background: #E23744;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #c2410c;
+    background: #CB202D;
 }
 
 /* Line clamp utility */
 .line-clamp-2 {
     display: -webkit-box;
-    -line-clamp: 2;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -55,4 +70,19 @@ html {
     h2 {
         font-size: 1.5rem;
     }
+}
+
+/* Gradient background for hero sections */
+.gradient-red {
+    background: linear-gradient(135deg, #E23744 0%, #CB202D 100%);
+}
+
+/* Card hover effects */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(226, 55, 68, 0.15);
 }

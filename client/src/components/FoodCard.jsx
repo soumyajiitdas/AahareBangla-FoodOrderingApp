@@ -1,4 +1,4 @@
-import { Plus, Minus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 
@@ -15,65 +15,68 @@ const FoodCard = ({ food }) => {
 
     return (
         <div
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 group"
             data-testid={`food-card-${food._id}`}
         >
             {/* Image */}
-            <div className="relative h-48 overflow-hidden">
+            <div className="relative h-44 overflow-hidden">
                 <img
                     src={food.image}
                     alt={food.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                {food.isVeg && (
-                    <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
-                        VEG
-                    </span>
-                )}
-                {!food.isVeg && (
-                    <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                        NON-VEG
-                    </span>
-                )}
+                {/* Veg/Non-veg Badge */}
+                <div className="absolute top-3 left-3">
+                    {food.isVeg ? (
+                        <div className="bg-white p-1 rounded shadow-md border-2 border-green-600">
+                            <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                        </div>
+                    ) : (
+                        <div className="bg-white p-1 rounded shadow-md border-2 border-red-600">
+                            <div className="w-2 h-2 bg-red-600 rounded-full"></div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Content */}
             <div className="p-4">
-                <h3 className="text-lg font-bold text-gray-800 mb-1" data-testid={`food-name-${food._id}`}>
+                {/* Food Name */}
+                <h3 className="text-lg font-bold text-gray-900 mb-1" data-testid={`food-name-${food._id}`}>
                     {food.name}
                 </h3>
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{food.description}</p>
+                
+                {/* Description */}
+                <p className="text-sm text-gray-500 mb-3 line-clamp-2 h-10">{food.description}</p>
 
                 {/* Price and Add Button */}
-                <div className="flex items-center justify-between">
-                    <span className="text-xl font-bold text-orange-600" data-testid={`food-price-${food._id}`}>
-                        ${food.price.toFixed(2)}
-                    </span>
+                <div className="flex items-center justify-between mt-4">
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold text-gray-900" data-testid={`food-price-${food._id}`}>
+                            ${food.price.toFixed(2)}
+                        </span>
+                        {cartItem && (
+                            <span className="text-xs text-red-600 font-medium mt-1">
+                                {cartItem.quantity} in cart
+                            </span>
+                        )}
+                    </div>
                     <button
                         onClick={handleAddToCart}
                         data-testid={`add-to-cart-${food._id}`}
-                        className={`${isAdded ? 'bg-green-500' : 'bg-orange-600 hover:bg-orange-700'
-                            } text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2`}
+                        className={`${isAdded ? 'bg-green-500 scale-95' : 'bg-red-600 hover:bg-red-700 hover:scale-105'
+                            } text-white px-5 py-2.5 rounded-lg font-semibold transition-all duration-300 flex items-center space-x-2 shadow-md`}
                     >
                         {isAdded ? (
-                            <>
-                                <span>Added!</span>
-                            </>
+                            <span className="text-sm">Added!</span>
                         ) : (
                             <>
-                                <Plus className="w-5 h-5" />
-                                <span>Add</span>
+                                <Plus className="w-4 h-4" />
+                                <span className="text-sm">ADD</span>
                             </>
                         )}
                     </button>
                 </div>
-
-                {/* Show quantity if in cart */}
-                {cartItem && (
-                    <div className="mt-3 text-sm text-orange-600 font-medium">
-                        {cartItem.quantity} in cart
-                    </div>
-                )}
             </div>
         </div>
     );

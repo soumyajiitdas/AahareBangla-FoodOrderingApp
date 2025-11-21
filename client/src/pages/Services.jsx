@@ -1,4 +1,5 @@
-import { Truck, Users, Calendar, Phone, Clock, MapPin } from 'lucide-react';
+import { Truck, Users, Calendar, Phone, Clock, MapPin, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
     const services = [
@@ -13,6 +14,7 @@ const Services = () => {
                 'Contactless delivery option',
                 'Free delivery on orders above $20',
             ],
+            image: 'https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxmb29kJTIwZGVsaXZlcnl8ZW58MHx8fHwxNzYzNzA4NTgxfDA&ixlib=rb-4.1.0&q=85',
         },
         {
             icon: <Users className="w-12 h-12" />,
@@ -25,6 +27,7 @@ const Services = () => {
                 'Dedicated support for large orders',
                 'Flexible delivery timing',
             ],
+            image: 'https://images.unsplash.com/photo-1633424414664-c24a6d28086b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxwYXJ0eSUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU4Nnww&ixlib=rb-4.1.0&q=85',
         },
         {
             icon: <Calendar className="w-12 h-12" />,
@@ -37,65 +40,88 @@ const Services = () => {
                 'Complete setup and cleanup',
                 'Vegetarian and non-vegetarian options',
             ],
+            image: 'https://images.unsplash.com/photo-1518619745898-93e765966dcd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxldmVudCUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU5Mnww&ixlib=rb-4.1.0&q=85',
         },
     ];
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
-            <section className="bg-gradient-to-r from-orange-500 to-red-500 text-white py-16" data-testid="services-header">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4" data-testid="services-title">
-                        Our Services
-                    </h1>
-                    <p className="text-xl text-orange-50">
-                        Discover how we can serve you better
-                    </p>
+            {/* Header with Image */}
+            <section className="relative h-[400px] overflow-hidden" data-testid="services-header">
+                <div className="absolute inset-0">
+                    <img
+                        src="https://images.unsplash.com/photo-1576842546422-60562b9242ae?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwyfHxwYXJ0eSUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU4Nnww&ixlib=rb-4.1.0&q=85"
+                        alt="Our Services"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-r from-red-900/90 via-red-800/80 to-red-700/70"></div>
+                </div>
+                <div className="relative h-full flex items-center">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
+                        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white animate-fadeIn" data-testid="services-title">
+                            Our Services
+                        </h1>
+                        <p className="text-xl md:text-2xl text-red-50 max-w-3xl mx-auto">
+                            From doorstep delivery to grand celebrations, we've got you covered
+                        </p>
+                    </div>
                 </div>
             </section>
 
             {/* Services */}
-            <section className="py-16">
+            <section className="py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="space-y-12">
+                    <div className="space-y-16">
                         {services.map((service, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                                className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all card-hover"
                                 data-testid={`service-${index}`}
                             >
-                                <div className="md:flex">
-                                    {/* Icon Section */}
-                                    <div className="md:w-1/3 bg-gradient-to-br from-orange-400 to-red-500 p-8 flex items-center justify-center">
-                                        <div className="text-white">{service.icon}</div>
+                                <div className={`md:flex ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+                                    {/* Image Section */}
+                                    <div className="md:w-2/5 relative h-72 md:h-auto">
+                                        <img
+                                            src={service.image}
+                                            alt={service.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent"></div>
+                                        <div className="absolute bottom-6 left-6 text-white">
+                                            <div className="bg-red-600 rounded-full p-4 inline-block shadow-xl">
+                                                {service.icon}
+                                            </div>
+                                        </div>
                                     </div>
 
                                     {/* Content Section */}
-                                    <div className="md:w-2/3 p-8">
-                                        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                                    <div className="md:w-3/5 p-8 md:p-12">
+                                        <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                                             {service.title}
                                         </h3>
-                                        <p className="text-gray-600 mb-6">{service.description}</p>
+                                        <p className="text-gray-600 text-lg mb-8 leading-relaxed">{service.description}</p>
 
                                         {/* Features */}
-                                        <ul className="space-y-2">
+                                        <div className="space-y-4">
                                             {service.features.map((feature, idx) => (
-                                                <li key={idx} className="flex items-center text-gray-700">
-                                                    <svg
-                                                        className="w-5 h-5 text-green-500 mr-2"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 20 20"
-                                                    >
-                                                        <path
-                                                            fillRule="evenodd"
-                                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                            clipRule="evenodd"
-                                                        />
-                                                    </svg>
-                                                    {feature}
-                                                </li>
+                                                <div key={idx} className="flex items-start">
+                                                    <CheckCircle className="w-6 h-6 text-green-500 mr-3 shrink-0 mt-0.5" />
+                                                    <span className="text-gray-700 text-lg">{feature}</span>
+                                                </div>
                                             ))}
-                                        </ul>
+                                        </div>
+
+                                        <div className="mt-8">
+                                            <Link
+                                                to="/menu"
+                                                className="inline-flex items-center space-x-2 bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-all shadow-md hover:shadow-lg"
+                                            >
+                                                <span>Order Now</span>
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -104,33 +130,61 @@ const Services = () => {
                 </div>
             </section>
 
+            {/* Why Choose Us Section */}
+            <section className="py-16 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                            Why Choose Our Services?
+                        </h2>
+                        <p className="text-gray-600 text-lg">We're committed to making every meal memorable</p>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { title: 'Quality Guaranteed', desc: 'Fresh ingredients and authentic recipes', icon: '✨' },
+                            { title: 'On-Time Delivery', desc: 'We value your time as much as you do', icon: '⏰' },
+                            { title: 'Customer Support', desc: '24/7 support for all your queries', icon: '💬' },
+                        ].map((item, idx) => (
+                            <div key={idx} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors">
+                                <div className="text-5xl mb-4">{item.icon}</div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+                                <p className="text-gray-600">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Contact Section */}
-            <section className="bg-white py-16" data-testid="contact-section">
+            <section className="py-16 bg-gray-50" data-testid="contact-section">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
                         Get in Touch
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 text-orange-600 rounded-full mb-4">
+                        <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 text-red-600 rounded-full mb-4">
                                 <Phone className="w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">Call Us</h3>
-                            <p className="text-gray-600">+91-1234567890</p>
+                            <h3 className="text-xl font-bold mb-2 text-gray-900">Call Us</h3>
+                            <p className="text-gray-600 text-lg">+91-1234567890</p>
+                            <p className="text-sm text-gray-500 mt-2">Available 24/7</p>
                         </div>
-                        <div className="text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 text-orange-600 rounded-full mb-4">
+                        <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 text-red-600 rounded-full mb-4">
                                 <Clock className="w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">Opening Hours</h3>
-                            <p className="text-gray-600">Mon - Sun: 10 AM - 10 PM</p>
+                            <h3 className="text-xl font-bold mb-2 text-gray-900">Opening Hours</h3>
+                            <p className="text-gray-600 text-lg">Mon - Sun</p>
+                            <p className="text-sm text-gray-500 mt-2">10 AM - 10 PM</p>
                         </div>
-                        <div className="text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 text-orange-600 rounded-full mb-4">
+                        <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 text-red-600 rounded-full mb-4">
                                 <MapPin className="w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">Visit Us</h3>
-                            <p className="text-gray-600">123 Food Street, Kolkata, India</p>
+                            <h3 className="text-xl font-bold mb-2 text-gray-900">Visit Us</h3>
+                            <p className="text-gray-600">123 Food Street</p>
+                            <p className="text-sm text-gray-500 mt-2">Kolkata, India</p>
                         </div>
                     </div>
                 </div>

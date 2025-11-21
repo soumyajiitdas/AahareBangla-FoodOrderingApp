@@ -28,4 +28,7 @@ const FoodSchema = new mongoose.Schema({
     }
 });
 
+// Add unique compound index to prevent duplicate items
+FoodSchema.index({ name: 1, category: 1 }, { unique: true });
+
 module.exports = mongoose.model('Food', FoodSchema);

@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* About */}
                     <div>
-                        <h3 className="text-xl font-bold text-orange-500 mb-4">Aahare Bangla</h3>
+                        <h3 className="text-xl font-bold text-red-500 mb-4">Aahare Bangla</h3>
                         <p className="text-gray-400 text-sm">
                             Authentic Bengali and Indian cuisine delivered to your doorstep. Experience the taste of tradition with every bite.
                         </p>
@@ -17,10 +17,10 @@ const Footer = () => {
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
                         <ul className="space-y-2 text-gray-400 text-sm">
-                            <li><a href="/" className="hover:text-orange-500 transition-colors">Home</a></li>
-                            <li><a href="/menu" className="hover:text-orange-500 transition-colors">Menu</a></li>
-                            <li><a href="/services" className="hover:text-orange-500 transition-colors">Services</a></li>
-                            <li><a href="/profile" className="hover:text-orange-500 transition-colors">Profile</a></li>
+                            <li><a href="/" className="hover:text-red-500 transition-colors">Home</a></li>
+                            <li><a href="/menu" className="hover:text-red-500 transition-colors">Menu</a></li>
+                            <li><a href="/services" className="hover:text-red-500 transition-colors">Services</a></li>
+                            <li><a href="/profile" className="hover:text-red-500 transition-colors">Profile</a></li>
                         </ul>
                     </div>
 
@@ -47,13 +47,13 @@ const Footer = () => {
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
+                            <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
                                 <Facebook className="w-6 h-6" />
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
+                            <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
                                 <Instagram className="w-6 h-6" />
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-orange-500 transition-colors">
+                            <a href="#" className="text-gray-400 hover:text-red-500 transition-colors">
                                 <Twitter className="w-6 h-6" />
                             </a>
                         </div>
