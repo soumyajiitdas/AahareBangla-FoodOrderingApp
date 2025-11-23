@@ -25,7 +25,7 @@ const seedFoods = async (req, res) => {
             { name: 'Chole Bhature', price: 159, category: 'Main Course', description: 'Spicy Punjabi chickpea curry served with fluffy fried bhature', image: 'https://lh3.googleusercontent.com/proxy/f1AVD_bMmd3qK65M6BCk5a-9OJkuJHu5wZjkPumm1Ef2GCRWsAOwEgL1aYaYOPqCVYImVU74ktUY_iDGnQn0QjRowRxvtbqxqqC1a26Vu3vu0d0XSrTehbRGiUQRUpymqGkGCZTIM5-xrA?w=400', isVeg: true },
 
             // Desserts
-            { name: 'Gulab Jamun', price: 119, category: 'Desserts', description: 'Soft milk-dumplings soaked in rose-cardamom sugar syrup', image: 'https://images.unsplash.com/photo-1593701461250-d7b22dfd3a77?w=400', isVeg: true },
+            { name: 'Gulab Jamun', price: 119, category: 'Desserts', description: 'Soft milk-dumplings soaked in rose-cardamom sugar syrup', image: 'https://theartisticcook.com/wp-content/uploads/2024/10/Gulab-Jamun-with-Milk-Powder.jpg?w=400', isVeg: true },
             { name: 'Kheer', price: 119, category: 'Desserts', description: 'Creamy rice pudding flavored with cardamom and garnished with nuts', image: 'https://images.herzindagi.info/image/2023/Oct/carrot-kheer-easy-recipe-for-diwali-2023.jpg?w=400', isVeg: true },
             { name: 'Mishti Doi', price: 99, category: 'Desserts', description: 'Sweet Bengali-style thickened curd', image: 'https://cdn.prod.website-files.com/64931d2aee18510b47f4bb1f/6685ac20f1316f7a50ffe27c_Mishti-Doi-Recipe-Cover-Image.jpg?w=400', isVeg: true },
             { name: 'Rasgulla', price: 99, category: 'Desserts', description: 'Soft, spongy cottage cheese balls soaked in light sugar syrup', image: 'https://madhurasrecipe.com/wp-content/uploads/2023/10/Rasgulla-Featured-Image.jpg?w=400', isVeg: true },

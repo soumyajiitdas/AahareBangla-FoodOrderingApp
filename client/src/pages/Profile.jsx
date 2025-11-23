@@ -1,41 +1,40 @@
-import { User, Mail, Phone, MapPin, Calendar, Award } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Calendar, Award, Package } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useEffect, useState } from 'react';
+import { api } from '../utils/api';
 
 const Profile = () => {
-    // Mock user data
-    const user = {
-        name: 'Subho Chakraborty',
-        email: 'subho.chakraborty@gmail.com',
-        phone: '+91-9876543210',
-        address: 'Khagra, Berhampore, West Bengal - 742101',
-        memberSince: 'October 2025',
-        totalOrders: 5,
-        favoriteCategory: 'Main Course',
-        loyaltyPoints: 200,
+    const { user } = useAuth();
+    const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const ordersData = await api.getOrders();
+                setOrders(ordersData);
+            } catch (error) {
+                console.error('Failed to fetch orders:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, []);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
     };
 
-    const recentOrders = [
-        {
-            id: 'ORD-1234',
-            date: '2024-08-15',
-            items: 'Chicken Wings, Margherita Pizza, Cold Coffee',
-            total: 32.97,
-            status: 'Delivered',
-        },
-        {
-            id: 'ORD-1233',
-            date: '2024-08-12',
-            items: 'Paneer Tikka Masala, Garlic Bread, Mango Lassi',
-            total: 23.97,
-            status: 'Delivered',
-        },
-        {
-            id: 'ORD-1232',
-            date: '2024-08-08',
-            items: 'Fish and Chips, Tiramisu, Green Tea',
-            total: 27.97,
-            status: 'Delivered',
-        },
-    ];
+    const memberSince = user?.createdAt 
+        ? formatDate(user.createdAt)
+        : 'Recently joined';
 
     return (
         <div className="min-h-screen bg-red-50 py-8">
@@ -54,44 +53,44 @@ const Profile = () => {
                         <div className="bg-white rounded-lg shadow-md p-6" data-testid="profile-card">
                             {/* Avatar */}
                             <div className="text-center mb-6">
-                                <div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-orange-400 to-red-500 text-white rounded-full text-3xl font-bold mb-4">
-                                    {user.name
-                                        .split(' ')
+                                <div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-red-500 to-red-600 text-white rounded-full text-3xl font-bold mb-4">
+                                    {user?.name
+                                        ?.split(' ')
                                         .map((n) => n[0])
-                                        .join('')}
+                                        .join('') || 'U'}
                                 </div>
-                                <h2 className="text-2xl font-bold text-gray-900" data-testid="user-name">{user.name}</h2>
+                                <h2 className="text-2xl font-bold text-gray-900" data-testid="user-name">{user?.name || 'User'}</h2>
                                 <p className="text-gray-600">Food Enthusiast</p>
                             </div>
 
                             {/* Contact Info */}
                             <div className="space-y-4">
                                 <div className="flex items-start space-x-3" data-testid="user-email">
-                                    <Mail className="w-5 h-5 text-orange-600 mt-1" />
+                                    <Mail className="w-5 h-5 text-red-600 mt-1" />
                                     <div>
                                         <p className="text-sm text-gray-600">Email</p>
-                                        <p className="font-medium text-gray-900">{user.email}</p>
+                                        <p className="font-medium text-gray-900">{user?.email || 'N/A'}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start space-x-3" data-testid="user-phone">
-                                    <Phone className="w-5 h-5 text-orange-600 mt-1" />
+                                    <Phone className="w-5 h-5 text-red-600 mt-1" />
                                     <div>
                                         <p className="text-sm text-gray-600">Phone</p>
-                                        <p className="font-medium text-gray-900">{user.phone}</p>
+                                        <p className="font-medium text-gray-900">{user?.phone || 'N/A'}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start space-x-3" data-testid="user-address">
-                                    <MapPin className="w-5 h-5 text-orange-600 mt-1" />
+                                    <MapPin className="w-5 h-5 text-red-600 mt-1" />
                                     <div>
                                         <p className="text-sm text-gray-600">Address</p>
-                                        <p className="font-medium text-gray-900">{user.address}</p>
+                                        <p className="font-medium text-gray-900">{user?.address || 'N/A'}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start space-x-3" data-testid="member-since">
-                                    <Calendar className="w-5 h-5 text-orange-600 mt-1" />
+                                    <Calendar className="w-5 h-5 text-red-600 mt-1" />
                                     <div>
                                         <p className="text-sm text-gray-600">Member Since</p>
-                                        <p className="font-medium text-gray-900">{user.memberSince}</p>
+                                        <p className="font-medium text-gray-900">{memberSince}</p>
                                     </div>
                                 </div>
                             </div>
@@ -103,20 +102,20 @@ const Profile = () => {
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center">
                                     <span className="text-gray-600">Total Orders</span>
-                                    <span className="text-2xl font-bold text-orange-600" data-testid="total-orders">
-                                        {user.totalOrders}
+                                    <span className="text-2xl font-bold text-red-600" data-testid="total-orders">
+                                        {orders.length}
                                     </span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                    <span className="text-gray-600">Loyalty Points</span>
-                                    <span className="text-2xl font-bold text-orange-600" data-testid="loyalty-points">
-                                        {user.loyaltyPoints}
+                                    <span className="text-gray-600">Total Spent</span>
+                                    <span className="text-2xl font-bold text-red-600" data-testid="total-spent">
+                                        ₹{orders.reduce((sum, order) => sum + order.total, 0).toFixed(2)}
                                     </span>
                                 </div>
                                 <div className="pt-3 border-t">
                                     <div className="flex items-center space-x-2 text-gray-600">
-                                        <Award className="w-5 h-5 text-orange-600" />
-                                        <span>Favorite: {user.favoriteCategory}</span>
+                                        <Package className="w-5 h-5 text-red-600" />
+                                        <span>Member of Aahare Bangla</span>
                                     </div>
                                 </div>
                             </div>
@@ -126,40 +125,58 @@ const Profile = () => {
                     {/* Recent Orders */}
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-lg shadow-md p-6" data-testid="recent-orders">
-                            <h3 className="text-2xl font-bold text-gray-900 mb-6">Recent Orders</h3>
-                            <div className="space-y-4">
-                                {recentOrders.map((order, index) => (
-                                    <div
-                                        key={order.id}
-                                        className="border rounded-lg p-4 hover:shadow-md transition-shadow"
-                                        data-testid={`order-${index}`}
-                                    >
-                                        <div className="flex justify-between items-start mb-2">
-                                            <div>
-                                                <p className="font-bold text-gray-900" data-testid={`order-id-${index}`}>{order.id}</p>
-                                                <p className="text-sm text-gray-600" data-testid={`order-date-${index}`}>{order.date}</p>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-6">Order History</h3>
+                            
+                            {loading ? (
+                                <div className="text-center py-8">
+                                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+                                    <p className="mt-2 text-gray-600">Loading orders...</p>
+                                </div>
+                            ) : orders.length === 0 ? (
+                                <div className="text-center py-8">
+                                    <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                                    <p className="text-gray-600">No orders yet</p>
+                                    <p className="text-gray-500 text-sm mt-2">Start ordering to see your order history here!</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {orders.slice(0, 5).map((order, index) => (
+                                        <div
+                                            key={order._id}
+                                            className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                                            data-testid={`order-${index}`}
+                                        >
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div>
+                                                    <p className="font-bold text-gray-900" data-testid={`order-id-${index}`}>
+                                                        Order #{order._id.slice(-6).toUpperCase()}
+                                                    </p>
+                                                    <p className="text-sm text-gray-600" data-testid={`order-date-${index}`}>
+                                                        {formatDate(order.createdAt)}
+                                                    </p>
+                                                </div>
+                                                <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+                                                    Delivered
+                                                </span>
                                             </div>
-                                            <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
-                                                {order.status}
-                                            </span>
+                                            <div className="text-gray-700 mb-2">
+                                                <p className="text-sm font-medium mb-1">Items:</p>
+                                                {order.items.map((item, idx) => (
+                                                    <p key={idx} className="text-sm">
+                                                        • {item.food?.name || 'Unknown Item'} x {item.quantity}
+                                                    </p>
+                                                ))}
+                                            </div>
+                                            <div className="flex justify-between items-center pt-2 border-t">
+                                                <span className="text-gray-600">Total</span>
+                                                <span className="text-xl font-bold text-red-600" data-testid={`order-total-${index}`}>
+                                                    ₹{order.total.toFixed(2)}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <p className="text-gray-700 mb-2">{order.items}</p>
-                                        <div className="flex justify-between items-center pt-2 border-t">
-                                            <span className="text-gray-600">Total</span>
-                                            <span className="text-xl font-bold text-orange-600" data-testid={`order-total-${index}`}>
-                                                ${order.total.toFixed(2)}
-                                            </span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* View All Button */}
-                            <div className="text-center mt-6">
-                                <button className="text-orange-600 font-medium hover:text-orange-700 transition-colors">
-                                    View All Orders →
-                                </button>
-                            </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

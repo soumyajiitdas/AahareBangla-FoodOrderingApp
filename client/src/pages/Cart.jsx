@@ -26,10 +26,13 @@ const Cart = () => {
     const handleConfirmOrder = async () => {
         setIsProcessing(true);
         try {
-            // Generate order data
+            // Call the API to place order and save to database
+            const placedOrder = await api.placeOrder();
+            
+            // Generate display order data
             const now = new Date();
             const order = {
-                orderId: `ORD-${Math.floor(Math.random() * 10000)}`,
+                orderId: placedOrder._id.slice(-6).toUpperCase(),
                 date: now.toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -75,7 +78,7 @@ const Cart = () => {
         <div className="min-h-screen bg-gray-50 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" data-testid="cart-title">
-                    Your Cart <span className="text-orange-600">:</span>
+                    My Cart <span className="text-orange-600">:</span>
                 </h1>
                 <p className="text-gray-600 text-md mb-6">Hurry! <span className='text-red-600'>{cart.length}</span> item(s) added to your cart — finish your order and enjoy them fresh & fast. 🚀</p>
 

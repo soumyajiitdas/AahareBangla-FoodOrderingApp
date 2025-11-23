@@ -1,22 +1,35 @@
-import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Search, ChefHat, Sparkles } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingCart, Menu, X, Search, ChefHat, Sparkles, LogIn, LogOut, User } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ onSearch }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
     const { getTotalItems } = useCart();
+    const { isAuthenticated, user, logout } = useAuth();
     const location = useLocation();
+    const navigate = useNavigate();
     const totalItems = getTotalItems();
 
     const navLinks = [
         { name: 'Home', path: '/' },
         { name: 'Menu', path: '/menu' },
         { name: 'Services', path: '/services' },
-        { name: 'Profile', path: '/profile' },
     ];
+
+    // Add Profile link only if authenticated
+    if (isAuthenticated) {
+        navLinks.push({ name: 'Profile', path: '/profile' });
+    }
+
+    const handleLogout = () => {
+        logout();
+        setIsMenuOpen(false);
+        navigate('/');
+    };
 
     const isActive = (path) => location.pathname === path;
 
@@ -38,12 +51,11 @@ const Navbar = ({ onSearch }) => {
     }, []);
 
     return (
-        <nav 
-            className={`sticky top-0 z-50 transition-all duration-500 ${
-                isScrolled 
-                    ? 'bg-white/95 backdrop-blur-lg shadow-xl' 
+        <nav
+            className={`sticky top-0 z-50 transition-all duration-500 ${isScrolled
+                    ? 'bg-white/95 backdrop-blur-lg shadow-xl'
                     : 'bg-white shadow-md'
-            }`}
+                }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
@@ -51,7 +63,7 @@ const Navbar = ({ onSearch }) => {
                     <Link to="/" className="flex items-center space-x-3 group">
                         <div className="relative">
                             <div className="absolute inset-0 bg-linear-to-r from-red-500 to-orange-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                            <div className="relative gradient-red p-2.5 rounded-2xl transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+                            <div className="relative gradient-red p-2.5 rounded-2xl transform group-hover:scale-110 group-hover:-rotate-7 transition-all duration-300 shadow-lg">
                                 <ChefHat className="w-6 h-6 text-white" strokeWidth={2.5} />
                             </div>
                         </div>
@@ -59,13 +71,13 @@ const Navbar = ({ onSearch }) => {
                             <span className="text-3xl font-black bg-linear-to-r from-red-600 via-red-700 to-orange-600 bg-clip-text text-transparent">
                                 Aahare Bangla
                             </span>
-                            <span className="text-xs text-gray-500 font-medium -mt-1">Authentic Cuisine <span className='text-red-500'>~</span></span> 
+                            <span className="text-xs text-gray-500 font-medium -mt-1">Authentic Cuisine <span className='text-red-500'>~</span></span>
                         </div>
                     </Link>
 
                     {/* Search Bar - Desktop */}
                     {location.pathname === '/menu' && (
-                        <div className="hidden md:flex flex-1 max-w-xl mx-8">
+                        <div className="hidden md:flex flex-1 max-w-md mx-3">
                             <div className="relative w-full group">
                                 <div className="absolute inset-0 bg-linear-to-r from-red-500/20 to-orange-500/20 rounded-2xl blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
                                 <div className="relative flex items-center">
@@ -101,15 +113,36 @@ const Navbar = ({ onSearch }) => {
                                 key={link.path}
                                 to={link.path}
                                 data-testid={`nav-link-${link.name.toLowerCase()}`}
-                                className={`relative px-5 py-2.5 font-semibold rounded-xl transition-all duration-300 ${
-                                    isActive(link.path)
-                                        ? 'text-white gradient-red shadow-lg shadow-red-500/40'
-                                        : 'text-gray-700 hover:text-red-600 hover:bg-red-50'
-                                }`}
+                                className={`relative px-5 py-2.5 font-semibold rounded-xl transition-all duration-300 ${isActive(link.path)
+                                        ? 'text-white gradient-red shadow-lg shadow-red-500/40 hover:-rotate-7'
+                                        : 'text-gray-700 hover:text-red-600 hover:bg-red-50 hover:shadow-lg hover:shadow-red-500/40 hover:-rotate-7'
+                                    }`}
                             >
                                 {link.name}
                             </Link>
                         ))}
+
+                        {/* Auth Buttons */}
+                        {location.pathname !== '/menu' && (
+                            isAuthenticated ? (
+                                <button
+                                    onClick={handleLogout}
+                                    data-testid="logout-button"
+                                    className="flex items-center space-x-2 p-3  text-gray-700 bg-gray-100 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-red-500/40 hover:-rotate-7"
+                                >
+                                    <LogOut className="w-5 h-5" />
+                                </button>
+                            ) : (
+                                <Link
+                                    to="/login"
+                                    data-testid="login-button"
+                                    className="flex items-center space-x-2 px-5 py-2.5 font-semibold rounded-xl text-white gradient-red shadow-lg shadow-red-500/40 hover:shadow-red-500/60 transition-all duration-300"
+                                >
+                                    <LogIn className="w-4 h-4" />
+                                    <span>Login</span>
+                                </Link>
+                            )
+                        )}
                     </div>
 
                     {/* Cart and Mobile Menu Button */}
@@ -185,11 +218,10 @@ const Navbar = ({ onSearch }) => {
                                 key={link.path}
                                 to={link.path}
                                 onClick={() => setIsMenuOpen(false)}
-                                className={`flex items-center justify-between px-4 py-3 font-semibold rounded-xl transition-all duration-300 ${
-                                    isActive(link.path)
+                                className={`flex items-center justify-between px-4 py-3 font-semibold rounded-xl transition-all duration-300 ${isActive(link.path)
                                         ? 'text-white bg-linear-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/30'
                                         : 'text-gray-700 hover:text-red-600 hover:bg-red-50'
-                                }`}
+                                    }`}
                             >
                                 <span>{link.name}</span>
                                 {isActive(link.path) && (
@@ -197,6 +229,26 @@ const Navbar = ({ onSearch }) => {
                                 )}
                             </Link>
                         ))}
+
+                        {/* Mobile Auth Button */}
+                        {isAuthenticated ? (
+                            <button
+                                onClick={handleLogout}
+                                className="w-full flex items-center justify-center space-x-2 px-4 py-3 font-semibold rounded-xl text-white bg-linear-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/30"
+                            >
+                                <LogOut className="w-4 h-4" />
+                                <span>Logout</span>
+                            </button>
+                        ) : (
+                            <Link
+                                to="/login"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="flex items-center justify-center space-x-2 px-4 py-3 font-semibold rounded-xl text-white bg-linear-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/30"
+                            >
+                                <LogIn className="w-4 h-4" />
+                                <span>Login</span>
+                            </Link>
+                        )}
                     </div>
                 </div>
             )}
