@@ -3,14 +3,14 @@ import { User, Mail, Phone, MapPin, Calendar, Award } from 'lucide-react';
 const Profile = () => {
     // Mock user data
     const user = {
-        name: 'Rahul Sharma',
-        email: 'rahul.sharma@example.com',
+        name: 'Subho Chakraborty',
+        email: 'subho.chakraborty@gmail.com',
         phone: '+91-9876543210',
-        address: '456 Park Avenue, Kolkata, West Bengal, India - 700001',
-        memberSince: 'January 2024',
-        totalOrders: 42,
+        address: 'Khagra, Berhampore, West Bengal - 742101',
+        memberSince: 'October 2025',
+        totalOrders: 5,
         favoriteCategory: 'Main Course',
-        loyaltyPoints: 850,
+        loyaltyPoints: 200,
     };
 
     const recentOrders = [
@@ -38,12 +38,12 @@ const Profile = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8">
+        <div className="min-h-screen bg-red-50 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2" data-testid="profile-title">
-                        My Profile
+                        My Profile <span className='text-red-600'>:</span>
                     </h1>
                     <p className="text-xl text-gray-600">Manage your account and view your order history</p>
                 </div>
@@ -54,7 +54,7 @@ const Profile = () => {
                         <div className="bg-white rounded-lg shadow-md p-6" data-testid="profile-card">
                             {/* Avatar */}
                             <div className="text-center mb-6">
-                                <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-orange-400 to-red-500 text-white rounded-full text-3xl font-bold mb-4">
+                                <div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-orange-400 to-red-500 text-white rounded-full text-3xl font-bold mb-4">
                                     {user.name
                                         .split(' ')
                                         .map((n) => n[0])

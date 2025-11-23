@@ -14,8 +14,8 @@ const Cart = () => {
     const [isProcessing, setIsProcessing] = useState(false);
 
     const subtotal = getTotalPrice();
-    const tax = subtotal * 0.05; // 5% tax
-    const deliveryFee = subtotal > 20 ? 0 : 3.99;
+    const tax = subtotal * 0.05;        // 5% tax
+    const deliveryFee = subtotal > 350 ? 0 : 50;
     const total = subtotal + tax + deliveryFee;
 
     const handleOrderNow = () => {
@@ -74,9 +74,10 @@ const Cart = () => {
     return (
         <div className="min-h-screen bg-gray-50 py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8" data-testid="cart-title">
-                    Your Cart
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" data-testid="cart-title">
+                    Your Cart <span className="text-orange-600">:</span>
                 </h1>
+                <p className="text-gray-600 text-md mb-6">Hurry! <span className='text-red-600'>{cart.length}</span> item(s) added to your cart — finish your order and enjoy them fresh & fast. 🚀</p>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Cart Items */}
@@ -84,7 +85,7 @@ const Cart = () => {
                         {cart.map((item, index) => (
                             <div
                                 key={item._id}
-                                className="bg-white rounded-lg shadow-md p-4 flex items-center space-x-4"
+                                className="bg-red-50 border border-red-400/30 rounded-2xl shadow-md p-4 flex items-center space-x-4"
                                 data-testid={`cart-item-${index}`}
                             >
                                 {/* Image */}
@@ -101,7 +102,7 @@ const Cart = () => {
                                     </h3>
                                     <p className="text-sm text-gray-600">{item.description}</p>
                                     <p className="text-lg font-bold text-orange-600 mt-1" data-testid={`cart-item-price-${index}`}>
-                                        ${item.price.toFixed(2)}
+                                        ₹{item.price.toFixed(2)}
                                     </p>
                                 </div>
 
@@ -130,7 +131,7 @@ const Cart = () => {
                                 <button
                                     onClick={() => removeFromCart(item._id)}
                                     data-testid={`remove-item-${index}`}
-                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                    className="p-2 text-red-600 hover:bg-red-200 rounded-lg transition-colors"
                                 >
                                     <Trash2 className="w-5 h-5" />
                                 </button>
@@ -140,30 +141,30 @@ const Cart = () => {
 
                     {/* Order Summary */}
                     <div className="lg:col-span-1">
-                        <div className="bg-white rounded-lg shadow-md p-6 sticky top-20" data-testid="order-summary">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Order Summary</h2>
+                        <div className="bg-white border border-red-400/30 rounded-2xl shadow-md p-6 sticky top-20" data-testid="order-summary">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Order Summary <span className='text-orange-600'>:</span></h2>
 
                             <div className="space-y-3 mb-6">
                                 <div className="flex justify-between text-gray-700">
-                                    <span>Subtotal</span>
-                                    <span data-testid="cart-subtotal">${subtotal.toFixed(2)}</span>
+                                    <span>Subtotal:</span>
+                                    <span data-testid="cart-subtotal">₹{subtotal.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-gray-700">
-                                    <span>Tax (5%)</span>
-                                    <span data-testid="cart-tax">${tax.toFixed(2)}</span>
+                                    <span>Tax (5%):</span>
+                                    <span data-testid="cart-tax">₹{tax.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-gray-700">
-                                    <span>Delivery Fee</span>
+                                    <span>Delivery Fee:</span>
                                     <span data-testid="cart-delivery">
-                                        {deliveryFee === 0 ? 'FREE' : `$${deliveryFee.toFixed(2)}`}
+                                        {deliveryFee === 0 ? 'FREE' : `₹${deliveryFee.toFixed(2)}`}
                                     </span>
                                 </div>
-                                {subtotal > 20 && (
+                                {subtotal > 350 && (
                                     <p className="text-sm text-green-600 font-medium">🎉 Free delivery unlocked!</p>
                                 )}
                                 <div className="border-t pt-3 flex justify-between text-xl font-bold text-gray-900">
-                                    <span>Total</span>
-                                    <span data-testid="cart-total">${total.toFixed(2)}</span>
+                                    <span>Total <span className='text-orange-600'>:</span></span>
+                                    <span data-testid="cart-total">₹{total.toFixed(2)}</span>
                                 </div>
                             </div>
 

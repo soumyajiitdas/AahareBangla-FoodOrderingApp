@@ -27,7 +27,7 @@ const Services = () => {
                 'Dedicated support for large orders',
                 'Flexible delivery timing',
             ],
-            image: 'https://images.unsplash.com/photo-1633424414664-c24a6d28086b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxwYXJ0eSUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU4Nnww&ixlib=rb-4.1.0&q=85',
+            image: 'https://images.unsplash.com/photo-1661994215679-cde7c2c5c060?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxwYXJ0eSUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU4Nnww&ixlib=rb-4.1.0&q=85',
         },
         {
             icon: <Calendar className="w-12 h-12" />,
@@ -40,7 +40,7 @@ const Services = () => {
                 'Complete setup and cleanup',
                 'Vegetarian and non-vegetarian options',
             ],
-            image: 'https://images.unsplash.com/photo-1518619745898-93e765966dcd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxldmVudCUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU5Mnww&ixlib=rb-4.1.0&q=85',
+            image: 'https://plus.unsplash.com/premium_photo-1754341267942-72f7f8e9b09f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxldmVudCUyMGNhdGVyaW5nfGVufDB8fHx8MTc2MzcwODU5Mnww&ixlib=rb-4.1.0&q=85',
         },
     ];
 
@@ -75,7 +75,7 @@ const Services = () => {
                         {services.map((service, index) => (
                             <div
                                 key={index}
-                                className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all card-hover"
+                                className="bg-red-50 rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all card-hover"
                                 data-testid={`service-${index}`}
                             >
                                 <div className={`md:flex ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
@@ -97,7 +97,7 @@ const Services = () => {
                                     {/* Content Section */}
                                     <div className="md:w-3/5 p-8 md:p-12">
                                         <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                                            {service.title}
+                                            {service.title} <span className='text-red-600'>:</span>
                                         </h3>
                                         <p className="text-gray-600 text-lg mb-8 leading-relaxed">{service.description}</p>
 
@@ -131,11 +131,11 @@ const Services = () => {
             </section>
 
             {/* Why Choose Us Section */}
-            <section className="py-16 bg-white">
+            <section className="py-16 bg-red-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                            Why Choose Our Services?
+                            Why Choose Our Services <span className='text-red-600'>?</span>
                         </h2>
                         <p className="text-gray-600 text-lg">We're committed to making every meal memorable</p>
                     </div>
@@ -145,7 +145,7 @@ const Services = () => {
                             { title: 'On-Time Delivery', desc: 'We value your time as much as you do', icon: '⏰' },
                             { title: 'Customer Support', desc: '24/7 support for all your queries', icon: '💬' },
                         ].map((item, idx) => (
-                            <div key={idx} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-red-50 transition-colors">
+                            <div key={idx} className="text-center p-6 rounded-2xl border border-red-400/30 bg-gray-50 hover:scale-105 transition-all duration-200">
                                 <div className="text-5xl mb-4">{item.icon}</div>
                                 <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
                                 <p className="text-gray-600">{item.desc}</p>
@@ -159,27 +159,27 @@ const Services = () => {
             <section className="py-16 bg-gray-50" data-testid="contact-section">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-                        Get in Touch
+                        Get in Touch <span className='text-red-600'>:</span>
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 text-red-600 rounded-full mb-4">
+                        <div className="bg-red-50 p-8 rounded-2xl border border-red-400/30 shadow-sm hover:shadow-md transition-all text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-200 text-red-600 rounded-full mb-4">
                                 <Phone className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold mb-2 text-gray-900">Call Us</h3>
                             <p className="text-gray-600 text-lg">+91-1234567890</p>
                             <p className="text-sm text-gray-500 mt-2">Available 24/7</p>
                         </div>
-                        <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 text-red-600 rounded-full mb-4">
+                        <div className="bg-red-50 p-8 rounded-2xl border border-red-400/30 shadow-sm hover:shadow-md transition-all text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-200 text-red-600 rounded-full mb-4">
                                 <Clock className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold mb-2 text-gray-900">Opening Hours</h3>
                             <p className="text-gray-600 text-lg">Mon - Sun</p>
                             <p className="text-sm text-gray-500 mt-2">10 AM - 10 PM</p>
                         </div>
-                        <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all text-center">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-50 text-red-600 rounded-full mb-4">
+                        <div className="bg-red-50 p-8 rounded-2xl border border-red-400/30 shadow-sm hover:shadow-md transition-all text-center">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-red-200 text-red-600 rounded-full mb-4">
                                 <MapPin className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold mb-2 text-gray-900">Visit Us</h3>

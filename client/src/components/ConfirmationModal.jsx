@@ -38,7 +38,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, totalAmount }) => {
                         You are about to place an order worth
                     </p>
                     <p className="text-3xl font-bold text-orange-600 mb-6" data-testid="confirmation-total">
-                        ${totalAmount.toFixed(2)}
+                        ₹{totalAmount.toFixed(2)}
                     </p>
                     <p className="text-sm text-gray-500 mb-8">
                         This action will process your order and generate an invoice.

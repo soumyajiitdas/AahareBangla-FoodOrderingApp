@@ -33,7 +33,7 @@ const BillModal = ({ isOpen, onClose, order, orderData }) => {
                     <div className="text-center mb-8 border-b pb-6">
                         <h2 className="text-3xl font-bold text-gray-900 mb-2" data-testid="invoice-title">INVOICE</h2>
                         <h3 className="text-xl font-semibold text-orange-600">Aahare Bangla Restaurant</h3>
-                        <p className="text-gray-600 text-sm">123 Food Street, Kolkata, India</p>
+                        <p className="text-gray-600 text-sm">Banjetia, Berhampore, West Bengal - 742102</p>
                         <p className="text-gray-600 text-sm">Phone: +91-1234567890</p>
                     </div>
 
@@ -69,9 +69,9 @@ const BillModal = ({ isOpen, onClose, order, orderData }) => {
                                     <tr key={index} className="border-b" data-testid={`bill-item-${index}`}>
                                         <td className="py-3">{item.name}</td>
                                         <td className="py-3 text-center" data-testid={`bill-item-quantity-${index}`}>{item.quantity}</td>
-                                        <td className="py-3 text-right">${item.price.toFixed(2)}</td>
+                                        <td className="py-3 text-right">₹{item.price.toFixed(2)}</td>
                                         <td className="py-3 text-right font-semibold" data-testid={`bill-item-total-${index}`}>
-                                            ${(item.price * item.quantity).toFixed(2)}
+                                            ₹{(item.price * item.quantity).toFixed(2)}
                                         </td>
                                     </tr>
                                 ))}
@@ -83,15 +83,15 @@ const BillModal = ({ isOpen, onClose, order, orderData }) => {
                     <div className="border-t-2 pt-4 space-y-2">
                         <div className="flex justify-between text-gray-700">
                             <span>Subtotal:</span>
-                            <span data-testid="bill-subtotal">${subtotal.toFixed(2)}</span>
+                            <span data-testid="bill-subtotal">₹{subtotal.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between text-gray-700">
                             <span>Tax (5%):</span>
-                            <span data-testid="bill-tax">${tax.toFixed(2)}</span>
+                            <span data-testid="bill-tax">₹{tax.toFixed(2)}</span>
                         </div>
                         <div className="flex justify-between text-xl font-bold text-gray-900 border-t pt-2">
                             <span>Total:</span>
-                            <span data-testid="bill-total">${total.toFixed(2)}</span>
+                            <span data-testid="bill-total">₹{total.toFixed(2)}</span>
                         </div>
                     </div>
 

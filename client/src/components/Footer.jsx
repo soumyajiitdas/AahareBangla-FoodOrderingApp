@@ -3,11 +3,11 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react'
 const Footer = () => {
     return (
         <footer className="bg-gray-900 text-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* About */}
                     <div>
-                        <h3 className="text-xl font-bold text-red-500 mb-4">Aahare Bangla</h3>
+                        <h3 className="text-2xl font-bold text-red-500 mb-4">🧑🏻‍🍳 Aahare Bangla</h3>
                         <p className="text-gray-400 text-sm">
                             Authentic Bengali and Indian cuisine delivered to your doorstep. Experience the taste of tradition with every bite.
                         </p>
@@ -34,11 +34,11 @@ const Footer = () => {
                             </li>
                             <li className="flex items-center space-x-2">
                                 <Mail className="w-4 h-4" />
-                                <span>info@aaharebangla.com</span>
+                                <span>support@aaharebangla.com</span>
                             </li>
                             <li className="flex items-start space-x-2">
                                 <MapPin className="w-4 h-4 mt-1" />
-                                <span>123 Food Street, Kolkata, West Bengal, India</span>
+                                <span>Banjetia, Berhampore, West Bengal - 742102</span>
                             </li>
                         </ul>
                     </div>
