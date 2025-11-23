@@ -8,15 +8,25 @@ const placeOrder = async (req, res) => {
             return res.status(400).json({ message: 'Cart is empty' });
         }
 
-        let total = 0;
+        // Calculate subtotal
+        let subtotal = 0;
         const orderItems = cartItems.map(item => {
             const itemTotal = item.food.price * item.quantity;
-            total += itemTotal;
+            subtotal += itemTotal;
             return {
                 food: item.food._id,
                 quantity: item.quantity
             };
         });
+
+        // Calculate tax (5%)
+        const tax = subtotal * 0.05;
+        
+        // Calculate delivery fee (free if subtotal > 350, else 50)
+        const deliveryFee = subtotal > 350 ? 0 : 50;
+        
+        // Calculate total including tax and delivery
+        const total = subtotal + tax + deliveryFee;
 
         const newOrder = new Order({
             user: req.user.id,
