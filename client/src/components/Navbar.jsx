@@ -64,7 +64,7 @@ const Navbar = ({ onSearch }) => {
                         <div className="relative">
                             <div className="absolute inset-0 bg-linear-to-r from-red-500 to-orange-500 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
                             <div className="relative gradient-red p-2.5 rounded-2xl transform group-hover:scale-110 group-hover:-rotate-7 transition-all duration-300 shadow-lg">
-                                <ChefHat className="w-6 h-6 text-white" strokeWidth={2.5} />
+                                <ChefHat className="w-6 h-6 text-white group-hover:animate-bounce" strokeWidth={2.5} />
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -128,7 +128,7 @@ const Navbar = ({ onSearch }) => {
                                 <button
                                     onClick={handleLogout}
                                     data-testid="logout-button"
-                                    className="flex items-center space-x-2 p-3  text-gray-700 bg-gray-100 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-red-500/40 hover:-rotate-7"
+                                    className="flex items-center space-x-2 p-3 text-red-600 bg-gray-100 hover:bg-red-50 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-red-500/40 hover:-rotate-7"
                                 >
                                     <LogOut className="w-5 h-5" />
                                 </button>
@@ -136,7 +136,7 @@ const Navbar = ({ onSearch }) => {
                                 <Link
                                     to="/login"
                                     data-testid="login-button"
-                                    className="flex items-center space-x-2 px-5 py-2.5 font-semibold rounded-xl text-white gradient-red shadow-lg shadow-red-500/40 hover:shadow-red-500/60 transition-all duration-300"
+                                    className="flex items-center space-x-2 px-5 py-2.5 font-semibold rounded-xl text-white gradient-red shadow-lg shadow-red-500/40 hover:shadow-red-500/60 hover:-rotate-7 transition-all duration-300 "
                                 >
                                     <LogIn className="w-4 h-4" />
                                     <span>Login</span>
@@ -152,7 +152,7 @@ const Navbar = ({ onSearch }) => {
                             data-testid="cart-button"
                             className="relative group"
                         >
-                            <div className="relative p-3 text-gray-700 hover:text-white bg-gray-100 hover:bg-linear-to-r hover:from-red-600 hover:to-red-700 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-red-500/40 hover:scale-110">
+                            <div className="relative p-3 text-red-500 hover:text-white bg-red-100 hover:bg-linear-to-r hover:from-red-600 hover:to-red-700 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-red-500/40 hover:scale-110">
                                 <ShoppingCart className="w-6 h-6" strokeWidth={2.5} />
                                 {totalItems > 0 && (
                                     <>

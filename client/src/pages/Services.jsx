@@ -12,7 +12,7 @@ const Services = () => {
                 'Delivery within 30 minutes',
                 'Real-time order tracking',
                 'Contactless delivery option',
-                'Free delivery on orders above $20',
+                'Free delivery on orders above ₹350',
             ],
             image: 'https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxmb29kJTIwZGVsaXZlcnl8ZW58MHx8fHwxNzYzNzA4NTgxfDA&ixlib=rb-4.1.0&q=85',
         },
@@ -183,8 +183,8 @@ const Services = () => {
                                 <MapPin className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold mb-2 text-gray-900">Visit Us</h3>
-                            <p className="text-gray-600">123 Food Street</p>
-                            <p className="text-sm text-gray-500 mt-2">Kolkata, India</p>
+                            <p className="text-gray-600">Banjetia, Berhampore</p>
+                            <p className="text-sm text-gray-500 mt-2">West Bengal, India</p>
                         </div>
                     </div>
                 </div>

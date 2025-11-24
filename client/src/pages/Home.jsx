@@ -16,7 +16,7 @@ const Home = () => {
         {
             icon: <Truck className="w-8 h-8" />,
             title: 'Free Delivery',
-            description: 'Free delivery on orders above $20',
+            description: 'Free delivery on orders above ₹350',
         },
         {
             icon: <Shield className="w-8 h-8" />,
@@ -98,7 +98,7 @@ const Home = () => {
                         <div className="max-w-2xl">
                             {/* Special Badge */}
                             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full mb-6 text-white animate-slideIn">
-                                <Sparkles className="w-4 h-4 text-yellow-300" />
+                                <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
                                 <span className="text-sm font-semibold">Free Delivery on Orders ₹350+</span>
                             </div>
                             
@@ -275,7 +275,7 @@ const Home = () => {
                                 />
                                 {/* Rating Badge */}
                                 <div className="absolute top-6 left-6 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-                                    <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                                    <Star className="w-5 h-5 text-yellow-500 fill-yellow-500 animate-pulse" />
                                     <span className="font-bold text-gray-900">4.9/5</span>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <div className="max-w-4xl mx-auto">
                         <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-8">
-                            <Sparkles className="w-5 h-5 text-yellow-300" />
+                            <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
                             <span className="font-semibold text-lg">Order Now & Get 20% Off</span>
                         </div>
                         <h2 className="text-4xl md:text-6xl font-bold mb-6">
