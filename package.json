@@ -1,0 +1,32 @@
+{
+  "name": "aaharebangla-foodorderingapp",
+  "version": "1.0.0",
+  "description": "A full-stack food ordering application built with the MERN stack (MongoDB, Express, React, Node.js).",
+  "main": "index.js",
+  "scripts": {
+    "client":"cd client && npm run dev",
+    "server":"cd server && npm start",
+    "app": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soumyajiitdas/AahareBangla-FoodOrderingApp.git"
+  },
+  "keywords": [
+    "food",
+    "ordering",
+    "mern",
+    "react",
+    "nodejs"
+  ],
+  "author": "Soumyajit Das",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/soumyajiitdas/AahareBangla-FoodOrderingApp/issues"
+  },
+  "homepage": "https://github.com/soumyajiitdas/AahareBangla-FoodOrderingApp#readme",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
