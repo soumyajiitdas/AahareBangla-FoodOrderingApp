@@ -1,15 +1,14 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, X, Search, ChefHat, Sparkles, LogIn, LogOut, User } from 'lucide-react';
+import { ShoppingCart, X, Search, ChefHat, LogIn, LogOut } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ onSearch }) => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [isScrolled, setIsScrolled] = useState(false);
     const { getTotalItems } = useCart();
-    const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     const totalItems = getTotalItems();
@@ -27,7 +26,6 @@ const Navbar = ({ onSearch }) => {
 
     const handleLogout = () => {
         logout();
-        setIsMenuOpen(false);
         navigate('/');
     };
 
@@ -145,8 +143,8 @@ const Navbar = ({ onSearch }) => {
                         )}
                     </div>
 
-                    {/* Cart and Mobile Menu Button */}
-                    <div className="flex items-center space-x-3">
+                    {/* Desktop Cart - Hidden on mobile */}
+                    <div className="hidden md:flex items-center">
                         <Link
                             to="/cart"
                             data-testid="cart-button"
@@ -169,15 +167,27 @@ const Navbar = ({ onSearch }) => {
                                 )}
                             </div>
                         </Link>
+                    </div>
 
-                        {/* Mobile menu button */}
-                        <button
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="md:hidden p-3 text-gray-700 hover:text-white bg-gray-100 hover:bg-linear-to-r hover:from-red-600 hover:to-red-700 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-110"
-                            data-testid="mobile-menu-button"
-                        >
-                            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                        </button>
+                    {/* Mobile Auth Icon Only */}
+                    <div className="md:hidden flex items-center">
+                        {isAuthenticated ? (
+                            <button
+                                onClick={handleLogout}
+                                data-testid="mobile-logout-button"
+                                className="p-3 text-red-600 bg-gray-100 hover:bg-red-50 rounded-xl transition-all duration-300 hover:shadow-lg"
+                            >
+                                <LogOut className="w-5 h-5" />
+                            </button>
+                        ) : (
+                            <Link
+                                to="/login"
+                                data-testid="mobile-login-button"
+                                className="p-3 text-white gradient-red rounded-xl shadow-lg transition-all duration-300"
+                            >
+                                <LogIn className="w-5 h-5" />
+                            </Link>
+                        )}
                     </div>
                 </div>
 
@@ -209,49 +219,6 @@ const Navbar = ({ onSearch }) => {
                 )}
             </div>
 
-            {/* Mobile Navigation */}
-            {isMenuOpen && (
-                <div className="md:hidden bg-linear-to-b from-white to-gray-50 border-t-2 border-gray-100" data-testid="mobile-menu">
-                    <div className="px-4 py-4 space-y-2">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.path}
-                                to={link.path}
-                                onClick={() => setIsMenuOpen(false)}
-                                className={`flex items-center justify-between px-4 py-3 font-semibold rounded-xl transition-all duration-300 ${isActive(link.path)
-                                        ? 'text-white bg-linear-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/30'
-                                        : 'text-gray-700 hover:text-red-600 hover:bg-red-50'
-                                    }`}
-                            >
-                                <span>{link.name}</span>
-                                {isActive(link.path) && (
-                                    <Sparkles className="w-4 h-4" />
-                                )}
-                            </Link>
-                        ))}
-
-                        {/* Mobile Auth Button */}
-                        {isAuthenticated ? (
-                            <button
-                                onClick={handleLogout}
-                                className="w-full flex items-center justify-center space-x-2 px-4 py-3 font-semibold rounded-xl text-white bg-linear-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/30"
-                            >
-                                <LogOut className="w-4 h-4" />
-                                <span>Logout</span>
-                            </button>
-                        ) : (
-                            <Link
-                                to="/login"
-                                onClick={() => setIsMenuOpen(false)}
-                                className="flex items-center justify-center space-x-2 px-4 py-3 font-semibold rounded-xl text-white bg-linear-to-r from-red-600 to-red-700 shadow-lg shadow-red-500/30"
-                            >
-                                <LogIn className="w-4 h-4" />
-                                <span>Login</span>
-                            </Link>
-                        )}
-                    </div>
-                </div>
-            )}
         </nav>
     );
 };

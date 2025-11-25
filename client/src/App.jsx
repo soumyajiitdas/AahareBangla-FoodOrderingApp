@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { useState } from 'react';
 import Navbar from './components/Navbar';
+import MobileNav from './components/MobileNav';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
@@ -23,7 +24,7 @@ function App() {
         <CartProvider>
           <div className="flex flex-col min-h-screen">
             <Navbar onSearch={setSearchQuery} />
-            <main className="flex-1">
+            <main className="flex-1 mb-16 md:mb-0">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/menu" element={<Menu searchQuery={searchQuery} />} />
@@ -49,6 +50,7 @@ function App() {
               </Routes>
             </main>
             <Footer />
+            <MobileNav />
           </div>
         </CartProvider>
       </AuthProvider>
